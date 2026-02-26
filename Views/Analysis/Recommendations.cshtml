@@ -3,23 +3,59 @@
 }
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" asp-area="" asp-controller="Analysis" asp-action="AnalysisHome">Analysis Home</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" asp-area="" asp-controller="Analysis" asp-action="AnalyzeData">Analyze Data</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" asp-area="" asp-controller="Analysis" asp-action="Recommendations">Recommendations</a>
-        </li>
-      </ul>
+    <div class="container-fluid">
+        <a class="navbar-brand" asp-area="" asp-controller="Analysis" asp-action="AnalysisHome">Analysis Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Analysis" asp-action="AnalyzeData">Analyze Data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Analysis"
+                       asp-action="Recommendations">Recommendations</a>
+                </li>
+            </ul>
+        </div>
     </div>
-  </div>
 </nav>
-<div class="text-center">
-    <h1 class="display-4">This analyze Recommendations page</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h3 class="display-4">Diet</h3>
+            <h4>Problems</h4>
+            <ul>
+                <li>Excess fat</li>
+                <li>Lack of Vegetable</li>
+            </ul>
+            <h4>Recommendations</h4>
+            <ul>
+                <li>Eat less sugar</li>
+                <li>Eat more vegetable</li>
+            </ul>
+        </div>
+        <div class="col">
+            <h3 class="display-4">Exercise</h3>
+            <h4>Problems</h4>
+            <ul>
+                <li>A set of exercise take so long</li>
+                <li>The repetitions are just around 5-6 </li>
+            </ul>
+            <h4>Recommendations</h4>
+            <ul>
+                <li>Reduce the weights</li>
+                <li>Increase the repetition to 10</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <h3 class="display-4">Recommended Lifestyle</h3>
+    </div>
+    <ul>
+        <li>Lifestyle 1: Do more cardio and eat more vegetable</li>
+    </ul>
 </div>
