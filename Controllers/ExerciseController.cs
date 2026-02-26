@@ -8,4 +8,13 @@ public class ExerciseController: Controller
     {
         return View();
     }
+
+    public IActionResult AnalyzeData()
+    {
+        return View();
+    }
+    public IActionResult Recommendations()
+    {
+        return View();
+    }
 }

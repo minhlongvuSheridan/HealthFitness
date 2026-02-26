@@ -12,4 +12,12 @@ public class AnalysisController: Controller
     {
         return View();
     }
+        public IActionResult AnalyzeData()
+    {
+        return View();
+    }
+    public IActionResult Recommendations()
+    {
+        return View();
+    }
 }
