@@ -8,4 +8,10 @@ public class DietController: Controller
     {
         return View();
     }
+
+    public IActionResult FoodLibrary(){
+        return View();
+    }
+
+    public IActionResult Tracker(){return View()}
 }
