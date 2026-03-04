@@ -13,5 +13,5 @@ public class DietController: Controller
         return View();
     }
 
-    public IActionResult Tracker(){return View()}
+    public IActionResult Tracker(){return View();}
 }
