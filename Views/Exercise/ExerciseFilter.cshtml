@@ -1,0 +1,77 @@
+@*@model IEnumerable<HealthFitness.Models.Exercise>@**@
+
+@{
+    ViewData["Title"] = "Exercise Results";
+}
+
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h1>Exercise Results</h1>
+            <p class="text-muted">
+                Showing @Model.Count() exercise(s) matching your filters
+            </p>
+            <a href="@Url.Action("Index", "Exercise")" class="btn btn-secondary btn-sm">
+                ← Back to Filters
+            </a>
+        </div>
+    </div>
+
+    @if (Model.Any())
+    {
+        <div class="row">
+            @foreach (var exercise in Model)
+            {
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        @if (!string.IsNullOrEmpty(exercise.ImageUrl))
+                        {
+                            <img src="@exercise.ImageUrl" class="card-img-top" alt="@exercise.Name" style="height: 200px; object-fit: cover;">
+                        }
+                        else
+                        {
+                            <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                                <span class="text-muted">No Image</span>
+                            </div>
+                        }
+                        
+                        <div class="card-body">
+                            <h5 class="card-title">@exercise.Name</h5>
+                            
+                            <div class="mb-2">
+                                <small class="badge badge-info">@exercise.Difficulty</small>
+                                <small class="badge badge-primary">@exercise.BodyPart</small>
+                            </div>
+
+                            <p class="card-text small">
+                                <strong>Goal:</strong> @exercise.Goal<br>
+                                <strong>Equipment:</strong> @exercise.Equipment<br>
+                                <strong>Location:</strong> @exercise.Location
+                            </p>
+
+                            <p class="card-text">
+                                <small class="text-muted">@exercise.Description</small>
+                            </p>
+                        </div>
+
+                        <div class="card-footer bg-white border-top">
+                            <a href="@Url.Action("Details", "Exercise", new { id = exercise.Id })" class="btn btn-primary btn-sm w-100">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info mt-4">
+            <h5>No exercises found</h5>
+            <p>Try adjusting your filters and search again.</p>
+            <a href="@Url.Action("Index", "Exercise")" class="btn btn-primary mt-2">
+                Modify Filters
+            </a>
+        </div>
+    }
+</div>
