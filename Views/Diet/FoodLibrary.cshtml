@@ -1,3 +1,4 @@
+@model List<Food>
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -55,20 +56,15 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>Egg</td>
-            <td>90</td>
-            <td>9</td>
-            <td>0</td>
-            <td>5</td>
-        </tr>
-        <tr>
-            <td>Banana</td>
-            <td>15</td>
-            <td>0</td>
-            <td>15</td>
-            <td>0</td>
-        </tr>
+        @foreach(var food in Model){
+            <tr>
+                <td>@food.name</td>
+                <td>@food.calories</td>
+                <td>@food.protein</td>
+                <td>@food.carbs</td>
+                <td>@food.fat</td>
+            </tr>
+        }
     </tbody>
 </table>
 
