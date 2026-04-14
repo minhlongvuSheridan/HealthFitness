@@ -1,4 +1,3 @@
-@model TrackerViewModel
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -46,47 +45,33 @@
   </div>
 </nav>
 
-
-<form asp-action="AddFood" method="post">
-    <select name="selectedFoodName">
-        @foreach (var food in Model.FoodLibrary)
-        {
-            <option value="@food.name">
-                @food.name (@food.calories cal)
-            </option>
-        }
-    </select>
-
-    <button type="submit">Add Food</button>
-</form>
-
-<h2>Nutrition Tracker</h2>
+<h2>Daily Records</h2>
 
 <table>
     <thead>
         <tr>
-            <th>Calories</th>
+            <th>Date</th>
+            <th>Total Calories</th>
             <th>Protein (g)</th>
             <th>Carbs (g)</th>
             <th>Fat (g)</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>@Model.TotalCalories cal</td>
-            <td>@Model.TotalProtein g</td>
-            <td>@Model.TotalCarbs g</td>
-            <td>@Model.TotalFat g</td>
-        </tr>
+            <tr>
+                <td>April 7th</td>
+                <td>1850</td>
+                <td>120</td>
+                <td>150</td>
+                <td>35</td>
+            </tr>
+            <tr>
+                <td>April 8th</td>
+                <td>2250</td>
+                <td>125</td>
+                <td>200</td>
+                <td>55</td>
+            </tr>
     </tbody>
 </table>
-<h3>Foods Eaten Today</h3>
-
-<ul>
-    @foreach (var food in Model.SelectedFoods)
-    {
-        <li>@food.name</li>
-    }
-</ul>
 </body>
-</html>

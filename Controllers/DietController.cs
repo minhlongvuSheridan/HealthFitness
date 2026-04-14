@@ -11,6 +11,11 @@ public class DietController: Controller
         return View();
     }
 
+    public IActionResult Records()
+    {
+        return View();
+    }
+
     public IActionResult FoodLibrary(){
         var foods = new List<Food>
         {
