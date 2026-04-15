@@ -1,77 +1,90 @@
-@*@model IEnumerable<HealthFitness.Models.Exercise>@**@
+@model IEnumerable<HealthFitness.Models.Exercise>
 
 @{
-    ViewData["Title"] = "Exercise Results";
+    ViewData["Title"] = "Exercise Filter";
 }
 
-<div class="container mt-5">
-    <div class="row mb-4">
-        <div class="col-md-12">
-            <h1>Exercise Results</h1>
-            <p class="text-muted">
-                Showing @Model.Count() exercise(s) matching your filters
-            </p>
-            <a href="@Url.Action("Index", "Exercise")" class="btn btn-secondary btn-sm">
-                ← Back to Filters
-            </a>
-        </div>
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h1 class="display-4 fw-bold">Filtered Exercises</h1>
+        <p class="lead text-muted">Browse the exercises that match your selected filters.</p>
     </div>
 
-    @if (Model.Any())
+    <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+        @if (!string.IsNullOrEmpty(ViewBag.SelectedBodyPart))
+        {
+            <span class="badge bg-primary fs-6">Body Part: @ViewBag.SelectedBodyPart</span>
+        }
+        @if (!string.IsNullOrEmpty(ViewBag.SelectedGoal))
+        {
+            <span class="badge bg-success fs-6">Goal: @ViewBag.SelectedGoal</span>
+        }
+        @if (!string.IsNullOrEmpty(ViewBag.SelectedDifficulty))
+        {
+            <span class="badge bg-warning text-dark fs-6">Difficulty: @ViewBag.SelectedDifficulty</span>
+        }
+        @if (!string.IsNullOrEmpty(ViewBag.SelectedEquipment))
+        {
+            <span class="badge bg-secondary fs-6">Equipment: @ViewBag.SelectedEquipment</span>
+        }
+    </div>
+
+    <div class="text-center mb-4">
+        <a href="@Url.Action("ExerciseHome", "Exercise")" class="btn btn-outline-dark">
+            ← Back to Exercise Home
+        </a>
+    </div>
+
+    @if (!Model.Any())
     {
-        <div class="row">
-            @foreach (var exercise in Model)
-            {
-                <div class="col-md-4 col-sm-6 mb-4">
-                    <div class="card h-100 shadow-sm">
-                        @if (!string.IsNullOrEmpty(exercise.ImageUrl))
-                        {
-                            <img src="@exercise.ImageUrl" class="card-img-top" alt="@exercise.Name" style="height: 200px; object-fit: cover;">
-                        }
-                        else
-                        {
-                            <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
-                                <span class="text-muted">No Image</span>
-                            </div>
-                        }
-                        
-                        <div class="card-body">
-                            <h5 class="card-title">@exercise.Name</h5>
-                            
-                            <div class="mb-2">
-                                <small class="badge badge-info">@exercise.Difficulty</small>
-                                <small class="badge badge-primary">@exercise.BodyPart</small>
-                            </div>
-
-                            <p class="card-text small">
-                                <strong>Goal:</strong> @exercise.Goal<br>
-                                <strong>Equipment:</strong> @exercise.Equipment<br>
-                                <strong>Location:</strong> @exercise.Location
-                            </p>
-
-                            <p class="card-text">
-                                <small class="text-muted">@exercise.Description</small>
-                            </p>
-                        </div>
-
-                        <div class="card-footer bg-white border-top">
-                            <a href="@Url.Action("Details", "Exercise", new { id = exercise.Id })" class="btn btn-primary btn-sm w-100">
-                                View Details
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            }
+        <div class="alert alert-info text-center shadow-sm rounded-4 p-4">
+            <h4 class="fw-bold">No exercises found</h4>
+            <p class="mb-0">Try changing your filters and searching again.</p>
         </div>
     }
     else
     {
-        <div class="alert alert-info mt-4">
-            <h5>No exercises found</h5>
-            <p>Try adjusting your filters and search again.</p>
-            <a href="@Url.Action("Index", "Exercise")" class="btn btn-primary mt-2">
-                Modify Filters
-            </a>
+        <div class="row g-4">
+            @foreach (var exercise in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm border-0 rounded-4">
+                        @if (!string.IsNullOrEmpty(exercise.ImageUrl))
+                        {
+                            <img src="@exercise.ImageUrl" class="card-img-top rounded-top-4" alt="@exercise.Name"
+                                 style="height: 220px; object-fit: cover;" />
+                        }
+                        else
+                        {
+                            <div class="bg-light d-flex align-items-center justify-content-center rounded-top-4"
+                                 style="height: 220px;">
+                                <span class="text-muted">No Image Available</span>
+                            </div>
+                        }
+
+                        <div class="card-body d-flex flex-column">
+                            <h4 class="card-title fw-bold">@exercise.Name</h4>
+                            <p class="text-muted mb-2">@exercise.Description</p>
+
+                            <div class="mb-3">
+                                <span class="badge bg-primary me-1">@exercise.BodyPart</span>
+                                <span class="badge bg-success me-1">@exercise.Goal</span>
+                                <span class="badge bg-warning text-dark me-1">@exercise.Difficulty</span>
+                            </div>
+
+                            <p class="mb-1"><strong>Equipment:</strong> @exercise.Equipment</p>
+                            <p class="mb-3"><strong>Location:</strong> @exercise.Location</p>
+
+                            <div class="mt-auto">
+                                <a href="@Url.Action("ExerciseInfo", "Exercise", new { id = exercise.Id })"
+                                       class="btn btn-primary w-100">
+                                    View Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     }
 </div>

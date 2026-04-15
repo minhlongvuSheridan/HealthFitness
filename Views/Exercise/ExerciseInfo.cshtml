@@ -1,95 +1,86 @@
-@*@model HealthFitness.Models.Exercise*@
+@model HealthFitness.Models.Exercise
 
 @{
-    ViewData["Title"] = Model.Name;
+    ViewData["Title"] = "Exercise Info";
 }
 
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-8">
-            <h1>@Model.Name</h1>
-            
-            <div class="card mt-4">
-                <div class="card-header">
-                    <h5>Description</h5>
-                </div>
-                <div class="card-body">
-                    <p>@Model.Description</p>
-                </div>
+<div class="container py-5">
+    <div class="mb-4">
+        <a href="@Url.Action("ExerciseHome", "Exercise")" class="btn btn-outline-dark">
+            ← Back to Exercise Home
+        </a>
+    </div>
+
+    <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+        <div class="row g-0">
+            <div class="col-lg-6">
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid w-100 h-100"
+                         style="object-fit: cover; min-height: 400px;" />
+                }
+                else
+                {
+                    <div class="bg-light d-flex align-items-center justify-content-center h-100" style="min-height: 400px;">
+                        <span class="text-muted fs-5">No Image Available</span>
+                    </div>
+                }
             </div>
 
-            <div class="card mt-4">
-                <div class="card-header">
-                    <h5>Instructions</h5>
-                </div>
-                <div class="card-body">
+            <div class="col-lg-6">
+                <div class="card-body p-4 p-lg-5">
+                    <h1 class="display-5 fw-bold mb-3">@Model.Name</h1>
+                    <p class="lead text-muted">@Model.Description</p>
+
+                    <div class="mb-4">
+                        <span class="badge bg-primary fs-6 me-2">@Model.BodyPart</span>
+                        <span class="badge bg-success fs-6 me-2">@Model.Goal</span>
+                        <span class="badge bg-warning text-dark fs-6 me-2">@Model.Difficulty</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <p><strong>Target Muscle:</strong> @Model.TargetMuscle</p>
+                        <p><strong>Equipment:</strong> @Model.Equipment</p>
+                        <p><strong>Location:</strong> @Model.Location</p>
+                    </div>
+
+                    <hr />
+
+                    <h4 class="fw-bold">Instructions</h4>
                     <p>@Model.Instructions</p>
                 </div>
             </div>
-
-            @if (!string.IsNullOrEmpty(Model.YouTubeVideoId))
-            {
-                <div class="card mt-4">
-                    <div class="card-header">
-                        <h5>Video Tutorial</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="ratio ratio-16x9">
-                            <iframe src="https://www.youtube.com/embed/@Model.YouTubeVideoId" 
-                                    title="@Model.Name Tutorial" 
-                                    allowfullscreen="" 
-                                    loading="lazy">
-                            </iframe>
-                        </div>
-                    </div>
-                </div>
-            }
         </div>
+    </div>
 
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Exercise Details</h5>
-                </div>
-                <div class="card-body">
-                    <p><strong>Difficulty:</strong> @Model.Difficulty</p>
-                    <p><strong>Target Muscle:</strong> @Model.TargetMuscle</p>
-                    <p><strong>Equipment:</strong> @Model.Equipment</p>
+    @if (!string.IsNullOrEmpty(Model.YouTubeVideoId))
+    {
+        <div class="card shadow-sm border-0 rounded-4 mt-5">
+            <div class="card-body p-4">
+                <h3 class="fw-bold mb-3">Tutorial Video</h3>
+                <div class="ratio ratio-16x9">
+                    <iframe src="https://www.youtube.com/embed/@(Model.YouTubeVideoId)" title="@Model.Name Tutorial"
+                            allowfullscreen loading="lazy"></iframe>
                 </div>
             </div>
+        </div>
+    }
 
-            @if (Model.Images != null && Model.Images.Count > 0)
-            {
-                <div class="card mt-4">
-                    <div class="card-header">
-                        <h5>Exercise Images</h5>
-                    </div>
-                    <div class="card-body">
-                        <div id="exerciseCarousel" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                                @for (int i = 0; i < Model.Images.Count; i++)
-                                {
-                                    <div class="carousel-item @(i == 0 ? "active" : "")">
-                                        <img src="@Model.Images[i].ImagePath" class="d-block w-100" alt="@Model.Name">
-                                    </div>
-                                }
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#exerciseCarousel" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon"></span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#exerciseCarousel" data-bs-slide="next">
-                                <span class="carousel-control-next-icon"></span>
-                            </button>
+    @if (Model.Images != null && Model.Images.Any())
+    {
+        <div class="mt-5">
+            <h3 class="fw-bold mb-4">More Images</h3>
+            <div class="row g-4">
+                @foreach (var image in Model.Images)
+                {
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                            <img src="@image.ImagePath" alt="@Model.Name" class="img-fluid"
+                                 style="height: 250px; object-fit: cover;" />
                         </div>
                     </div>
-                </div>
-            }
+                }
+            </div>
         </div>
-    </div>
-
-    <div class="row mt-5">
-        <div class="col">
-            <a href="@Url.Action("Index")" class="btn btn-secondary">Back to Exercises</a>
-        </div>
-    </div>
+    }
 </div>

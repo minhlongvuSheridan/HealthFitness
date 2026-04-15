@@ -1,156 +1,254 @@
 @{
-    ViewData["Title"] = "Exercise Categories";
+    ViewData["Title"] = "Exercise Home";
 }
 
-<div class="container mt-5">
-    <div class="text-center mb-4">
-        <h1 class="display-4">Choose Your Muscle Group</h1>
-        <p class="lead">Select a category to find exercises tailored to your goals.</p>
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-2 fw-light">Choose Your Muscle Group</h1>
+        <p class="lead text-muted">Select a category to find exercises tailored to your goals.</p>
     </div>
 
-    <div class="row">
-        <div class="col-md-3 col-sm-6 mb-4">
-            <div class="card h-100 text-center">
+    <div class="row g-4 mb-5">
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm border-0 rounded-4 text-center p-3">
                 <div class="card-body">
-                    <h5 class="card-title">Chest</h5>
-                    <p class="card-text">Exercises for building chest muscles.</p>
-                    <a href="#" class="btn btn-primary">View Exercises</a>
+                    <h3 class="fw-bold">Chest</h3>
+                    <p class="text-muted">Exercises for building chest muscles.</p>
+                    <a asp-controller="Exercise" asp-action="ExerciseFilter" asp-route-bodyPart="Chest"
+                       class="btn btn-primary px-4">View Exercises</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-6 mb-4">
-            <div class="card h-100 text-center">
+
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm border-0 rounded-4 text-center p-3">
                 <div class="card-body">
-                    <h5 class="card-title">Back</h5>
-                    <p class="card-text">Strengthen your back with targeted exercises.</p>
-                    <a href="#" class="btn btn-primary">View Exercises</a>
+                    <h3 class="fw-bold">Back</h3>
+                    <p class="text-muted">Strengthen your back with targeted exercises.</p>
+                    <a asp-controller="Exercise" asp-action="ExerciseFilter" asp-route-bodyPart="Back"
+                       class="btn btn-primary px-4">View Exercises</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-6 mb-4">
-            <div class="card h-100 text-center">
+
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm border-0 rounded-4 text-center p-3">
                 <div class="card-body">
-                    <h5 class="card-title">Legs</h5>
-                    <p class="card-text">Build powerful legs and improve mobility.</p>
-                    <a href="#" class="btn btn-primary">View Exercises</a>
+                    <h3 class="fw-bold">Legs</h3>
+                    <p class="text-muted">Build powerful legs and improve mobility.</p>
+                    <a asp-controller="Exercise" asp-action="ExerciseFilter" asp-route-bodyPart="Legs"
+                       class="btn btn-primary px-4">View Exercises</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-6 mb-4">
-            <div class="card h-100 text-center">
+
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm border-0 rounded-4 text-center p-3">
                 <div class="card-body">
-                    <h5 class="card-title">Shoulders</h5>
-                    <p class="card-text">Develop strong and defined shoulders.</p>
-                    <a href="#" class="btn btn-primary">View Exercises</a>
+                    <h3 class="fw-bold">Shoulders</h3>
+                    <p class="text-muted">Develop strong and defined shoulders.</p>
+                    <a asp-controller="Exercise" asp-action="ExerciseFilter" asp-route-bodyPart="Shoulders"
+                       class="btn btn-primary px-4">View Exercises</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-6 mb-4">
-            <div class="card h-100 text-center">
+
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm border-0 rounded-4 text-center p-3">
                 <div class="card-body">
-                    <h5 class="card-title">Arms</h5>
-                    <p class="card-text">Tone and strengthen your arms.</p>
-                    <a href="#" class="btn btn-primary">View Exercises</a>
+                    <h3 class="fw-bold">Arms</h3>
+                    <p class="text-muted">Tone and strengthen your arms.</p>
+                    <a asp-controller="Exercise" asp-action="ExerciseFilter" asp-route-bodyPart="Arms"
+                       class="btn btn-primary px-4">View Exercises</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-6 mb-4">
-            <div class="card h-100 text-center">
+
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm border-0 rounded-4 text-center p-3">
                 <div class="card-body">
-                    <h5 class="card-title">Core</h5>
-                    <p class="card-text">Enhance core stability and strength.</p>
-                    <a href="#" class="btn btn-primary">View Exercises</a>
+                    <h3 class="fw-bold">Core</h3>
+                    <p class="text-muted">Enhance core stability and strength.</p>
+                    <a asp-controller="Exercise" asp-action="ExerciseFilter" asp-route-bodyPart="Core"
+                       class="btn btn-primary px-4">View Exercises</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-6 mb-4">
-            <div class="card h-100 text-center">
+
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm border-0 rounded-4 text-center p-3">
                 <div class="card-body">
-                    <h5 class="card-title">Glutes</h5>
-                    <p class="card-text">Target your glutes for better posture and power.</p>
-                    <a href="#" class="btn btn-primary">View Exercises</a>
+                    <h3 class="fw-bold">Glutes</h3>
+                    <p class="text-muted">Target your glutes for better posture and power.</p>
+                    <a asp-controller="Exercise" asp-action="ExerciseFilter" asp-route-bodyPart="Glutes"
+                       class="btn btn-primary px-4">View Exercises</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-6 mb-4">
-            <div class="card h-100 text-center">
+
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm border-0 rounded-4 text-center p-3">
                 <div class="card-body">
-                    <h5 class="card-title">Full Body</h5>
-                    <p class="card-text">Comprehensive workouts for overall fitness.</p>
-                    <a href="#" class="btn btn-primary">View Exercises</a>
+                    <h3 class="fw-bold">Full Body</h3>
+                    <p class="text-muted">Comprehensive workouts for overall fitness.</p>
+                    <a asp-controller="Exercise" asp-action="ExerciseFilter" asp-route-bodyPart="Full Body"
+                       class="btn btn-primary px-4">View Exercises</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="text-center mb-4 mt-5">
-        <h2>Choose Your Training Type</h2>
-        <p class="lead">Filter by workout style for better results.</p>
+    <div class="text-center my-5 pt-3">
+        <h1 class="display-4 fw-semibold">Choose Your Training Type</h1>
+        <p class="lead text-muted">Filter by workout style for better results.</p>
     </div>
 
-    <div class="row">
-        <div class="col-md-3 col-sm-6 mb-4">
-            <div class="card h-100 text-center">
+    <div class="row g-4 mb-5">
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm border-0 rounded-4 text-center p-3">
                 <div class="card-body">
-                    <h5 class="card-title">Strength</h5>
-                    <p class="card-text">Build muscle and increase power.</p>
-                    <a href="#" class="btn btn-secondary">View Exercises</a>
+                    <h3 class="fw-bold">Strength</h3>
+                    <p class="text-muted">Build muscle and increase power.</p>
+                    <a asp-controller="Exercise" asp-action="ExerciseFilter" asp-route-goal="Strength"
+                       class="btn btn-secondary px-4">View Exercises</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-6 mb-4">
-            <div class="card h-100 text-center">
+
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm border-0 rounded-4 text-center p-3">
                 <div class="card-body">
-                    <h5 class="card-title">Cardio</h5>
-                    <p class="card-text">Improve cardiovascular health and endurance.</p>
-                    <a href="#" class="btn btn-secondary">View Exercises</a>
+                    <h3 class="fw-bold">Cardio</h3>
+                    <p class="text-muted">Improve cardiovascular health and endurance.</p>
+                    <a asp-controller="Exercise" asp-action="ExerciseFilter" asp-route-goal="Cardio"
+                       class="btn btn-secondary px-4">View Exercises</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-6 mb-4">
-            <div class="card h-100 text-center">
+
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm border-0 rounded-4 text-center p-3">
                 <div class="card-body">
-                    <h5 class="card-title">Mobility</h5>
-                    <p class="card-text">Enhance joint movement and flexibility.</p>
-                    <a href="#" class="btn btn-secondary">View Exercises</a>
+                    <h3 class="fw-bold">Mobility</h3>
+                    <p class="text-muted">Enhance joint movement and flexibility.</p>
+                    <a asp-controller="Exercise" asp-action="ExerciseFilter" asp-route-goal="Mobility"
+                       class="btn btn-secondary px-4">View Exercises</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-6 mb-4">
-            <div class="card h-100 text-center">
+
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm border-0 rounded-4 text-center p-3">
                 <div class="card-body">
-                    <h5 class="card-title">Flexibility</h5>
-                    <p class="card-text">Increase range of motion and reduce injury risk.</p>
-                    <a href="#" class="btn btn-secondary">View Exercises</a>
+                    <h3 class="fw-bold">Flexibility</h3>
+                    <p class="text-muted">Increase range of motion and reduce injury risk.</p>
+                    <a asp-controller="Exercise" asp-action="ExerciseFilter" asp-route-goal="Flexibility"
+                       class="btn btn-secondary px-4">View Exercises</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-6 mb-4">
-            <div class="card h-100 text-center">
+
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm border-0 rounded-4 text-center p-3">
                 <div class="card-body">
-                    <h5 class="card-title">HIIT</h5>
-                    <p class="card-text">High-intensity interval training for fat burn.</p>
-                    <a href="#" class="btn btn-secondary">View Exercises</a>
+                    <h3 class="fw-bold">HIIT</h3>
+                    <p class="text-muted">High-intensity interval training for fat burn.</p>
+                    <a asp-controller="Exercise" asp-action="ExerciseFilter" asp-route-goal="HIIT"
+                       class="btn btn-secondary px-4">View Exercises</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-6 mb-4">
-            <div class="card h-100 text-center">
+
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm border-0 rounded-4 text-center p-3">
                 <div class="card-body">
-                    <h5 class="card-title">Plyometrics</h5>
-                    <p class="card-text">Explosive movements for power and speed.</p>
-                    <a href="#" class="btn btn-secondary">View Exercises</a>
+                    <h3 class="fw-bold">Plyometrics</h3>
+                    <p class="text-muted">Explosive movements for power and speed.</p>
+                    <a asp-controller="Exercise" asp-action="ExerciseFilter" asp-route-goal="Plyometrics"
+                       class="btn btn-secondary px-4">View Exercises</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-6 mb-4">
-            <div class="card h-100 text-center">
+
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm border-0 rounded-4 text-center p-3">
                 <div class="card-body">
-                    <h5 class="card-title">Balance</h5>
-                    <p class="card-text">Improve stability and coordination.</p>
-                    <a href="#" class="btn btn-secondary">View Exercises</a>
+                    <h3 class="fw-bold">Balance</h3>
+                    <p class="text-muted">Improve stability and coordination.</p>
+                    <a asp-controller="Exercise" asp-action="ExerciseFilter" asp-route-goal="Balance"
+                       class="btn btn-secondary px-4">View Exercises</a>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="mt-5">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold">Advanced Exercise Filter</h2>
+            <p class="lead text-muted">Find exercises based on your preferences.</p>
+        </div>
+
+        <form asp-controller="Exercise" asp-action="ExerciseFilter" method="get"
+              class="card shadow-sm border-0 rounded-4 p-4">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Body Part</label>
+                    <select name="bodyPart" class="form-select">
+                        <option value="">All</option>
+                        <option value="Chest">Chest</option>
+                        <option value="Back">Back</option>
+                        <option value="Legs">Legs</option>
+                        <option value="Shoulders">Shoulders</option>
+                        <option value="Arms">Arms</option>
+                        <option value="Core">Core</option>
+                        <option value="Glutes">Glutes</option>
+                        <option value="Full Body">Full Body</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Goal</label>
+                    <select name="goal" class="form-select">
+                        <option value="">All</option>
+                        <option value="Strength">Strength</option>
+                        <option value="Cardio">Cardio</option>
+                        <option value="Mobility">Mobility</option>
+                        <option value="Flexibility">Flexibility</option>
+                        <option value="HIIT">HIIT</option>
+                        <option value="Plyometrics">Plyometrics</option>
+                        <option value="Balance">Balance</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Difficulty</label>
+                    <select name="difficulty" class="form-select">
+                        <option value="">All</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Equipment</label>
+                    <select name="equipment" class="form-select">
+                        <option value="">All</option>
+                        <option value="None">None</option>
+                        <option value="Barbell">Barbell</option>
+                        <option value="Dumbbell">Dumbbell</option>
+                        <option value="Pull-Up Bar">Pull-Up Bar</option>
+                        <option value="Cable Machine">Cable Machine</option>
+                        <option value="Bench">Bench</option>
+                        <option value="Box">Box</option>
+                        <option value="Jump Rope">Jump Rope</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-dark px-5">Apply Filter</button>
+            </div>
+        </form>
     </div>
 </div>

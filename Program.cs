@@ -1,9 +1,11 @@
+using HealthFitness.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDistributedMemoryCache(); // required for session
 builder.Services.AddSession();
+builder.Services.AddSingleton<HealthFitness.Services.ExerciseService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
