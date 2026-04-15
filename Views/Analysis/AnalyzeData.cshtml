@@ -1,42 +1,215 @@
 @{
     ViewData["Title"] = "Analyze Data";
 }
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" asp-area="" asp-controller="Analysis" asp-action="AnalysisHome">Analysis Home</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" asp-area="" asp-controller="Analysis" asp-action="AnalyzeData">Analyze Data</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" asp-area="" asp-controller="Analysis" asp-action="Recommendations">Recommendations</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <h3 class="display-4">Diet</h3>
-            <h4>Visulization</h4>
-            <img src="/image/analysis1.png" alt="Bar chart" width="300" height="200">
-            <br /><br /><br />
-            <h4>Hypothesis Testing</h4>
-            <img src="/image/analysis2.png" alt="Bar chart" width="300" height="200">
+    <div class="container-fluid">
+        <a class="navbar-brand" asp-area="" asp-controller="Analysis" asp-action="AnalysisHome">Analysis Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Analysis" asp-action="AnalyzeData">Analyze Data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Analysis"
+                       asp-action="Recommendations">Recommendations</a>
+                </li>
+            </ul>
         </div>
-        <div class="col">
-            <h3 class="display-4">Exercise</h3>
-            <h4>Visulization</h4>
-            <img src="/image/analysis1.png" alt="Bar chart" width="300" height="200">
-            <br /><br /><br />
-            <h4>Hypothesis Testing</h4>
-            <img src="/image/analysis2.png" alt="Bar chart" width="300" height="200">
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success bg-gradient text-white">Select User</div>
+                <div class="list-group list-group-flush" id="userList"></div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-6 border-end">
+                    <h1 class="display-4">Diet</h1>
+                    <h4 class="text-secondary">Visualization</h4>
+                    <canvas id="dietBarCanvas" width="300" height="200" class="mb-4"></canvas>
+                    
+                    <h4 class="text-secondary">Hypothesis Testing</h4>
+                    <div id="dietStatus" class="mb-1"></div>
+                    <canvas id="dietHypoCanvas" width="300" height="180"></canvas>
+                </div>
+
+                <div class="col-md-6">
+                    <h1 class="display-4">Exercise</h1>
+                    <h4 class="text-secondary">Visualization</h4>
+                    <canvas id="exerciseBarCanvas" width="300" height="200" class="mb-4"></canvas>
+                    
+                    <h4 class="text-secondary">Hypothesis Testing</h4>
+                    <div id="exerciseStatus" class="mb-1"></div>
+                    <canvas id="exerciseHypoCanvas" width="300" height="180"></canvas>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+<script>
+    const users = [
+        { name: "Minh", diet: [80, 70, 40, 50, 30, 45, 35], exercise: [20, 85, 70, 75, 40, 60, 50] },
+        { name: "Long", diet: [30, 35, 32, 38, 33, 31, 85], exercise: [60, 62, 58, 65, 60, 61, 10] },
+        { name: "Vu", diet: [21, 23, 23, 27, 24, 25, 26], exercise: [30, 31, 30, 100, 29, 28, 20] }
+    ];
+
+    function init() {
+        const list = document.getElementById('userList');
+        users.forEach((user, i) => {
+            const btn = document.createElement('button');
+            btn.className = "list-group-item list-group-item-action";
+            btn.textContent = user.name;
+            btn.onclick = () => {
+                document.querySelectorAll('.list-group-item').forEach(e => e.classList.remove('active'));
+                btn.classList.add('active');
+                updateUI(user);
+            };
+            list.appendChild(btn);
+        });
+        list.firstChild.click();
+    }
+
+    function updateUI(user) {
+        // Draw Bar Graphs
+        drawBarGraph('dietBarCanvas', user.diet);
+        drawBarGraph('exerciseBarCanvas', user.exercise);
+        
+        // Draw Hypothesis Curves
+        processHypothesis('dietHypoCanvas', 'dietStatus', user.diet);
+        processHypothesis('exerciseHypoCanvas', 'exerciseStatus', user.exercise);
+    }
+
+    function drawBarGraph(id, data) {
+        const canvas = document.getElementById(id);
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width;
+        const h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+
+        // Draw Axes (X and Y arrows)
+        ctx.beginPath();
+        ctx.strokeStyle = "#000";
+        ctx.lineWidth = 1.5;
+        // Y Axis
+        ctx.moveTo(30, 10); ctx.lineTo(30, h - 30); ctx.lineTo(w - 10, h - 30);
+        ctx.stroke();
+
+        // Draw Bars
+        const barWidth = (w - 60) / data.length;
+        const maxVal = 100; // Assuming 0-100 scale
+        
+        data.forEach((val, i) => {
+            const barHeight = (val / maxVal) * (h - 60);
+            ctx.fillStyle = "#005a9c"; // Blue from mockup
+            ctx.fillRect(40 + (i * barWidth), h - 30 - barHeight, barWidth - 10, barHeight);
+        });
+
+        // Legend Text
+        ctx.fillStyle = "#000";
+        ctx.font = "12px Arial";
+        ctx.fillText("Bar Graph", w/2 - 30, 20);
+    }
+
+    function processHypothesis(canvasId, statusId, data) {
+        const mean = data.reduce((a, b) => a + b) / data.length;
+        const std = Math.sqrt(data.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / data.length) || 1;
+        const z = (data[data.length - 1] - mean) / std;
+        
+        const isRejected = Math.abs(z) > 1.96;
+        const status = document.getElementById(statusId);
+        status.innerHTML = isRejected ? '<span class="text-danger">Reject H_0 and Favor H_a</span>' : '<span>Fail to reject H0</span>';
+
+        drawCurve(canvasId, z);
+    }
+
+    function drawCurve(id, z) {
+    const canvas = document.getElementById(id);
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height;
+    const margin = 30; // space for labels
+    const centerX = w / 2;
+    const scaleX = w / 8; // This defines how wide 1 Standard Deviation is on screen
+    
+    ctx.clearRect(0, 0, w, h);
+
+    // 1. Draw the Rejection Regions (Alpha = 0.05 -> Z = 1.96)
+    // We calculate the X pixel position for Z = 1.96 and Z = -1.96
+    const criticalZ = 1.96;
+    const leftTailX = centerX - (criticalZ * scaleX);
+    const rightTailX = centerX + (criticalZ * scaleX);
+
+    ctx.fillStyle = "rgba(135, 206, 250, 0.5)";
+    // Left Tail Shading
+    ctx.beginPath();
+    ctx.moveTo(0, h - margin);
+    for (let x = 0; x <= leftTailX; x++) {
+        const t = (x - centerX) / scaleX;
+        const y = h - (Math.exp(-0.5 * t * t) * (h - 60)) - margin;
+        ctx.lineTo(x, y);
+    }
+    ctx.lineTo(leftTailX, h - margin);
+    ctx.fill();
+
+    // Right Tail Shading
+    ctx.beginPath();
+    ctx.moveTo(rightTailX, h - margin);
+    for (let x = rightTailX; x <= w; x++) {
+        const t = (x - centerX) / scaleX;
+        const y = h - (Math.exp(-0.5 * t * t) * (h - 60)) - margin;
+        ctx.lineTo(x, y);
+    }
+    ctx.lineTo(w, h - margin);
+    ctx.fill();
+
+    // 2. Draw the Main Bell Curve Line
+    ctx.beginPath();
+    ctx.strokeStyle = "#444";
+    ctx.lineWidth = 2;
+    for (let x = 0; x <= w; x++) {
+        const t = (x - centerX) / scaleX;
+        const y = h - (Math.exp(-0.5 * t * t) * (h - 60)) - margin;
+        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    // 3. Draw Vertical Critical Lines at +/- 1.96
+    ctx.strokeStyle = "#999";
+    ctx.setLineDash([2, 2]);
+    ctx.beginPath(); ctx.moveTo(leftTailX, 40); ctx.lineTo(leftTailX, h - margin); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(rightTailX, 40); ctx.lineTo(rightTailX, h - margin); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // 4. Draw Red Z-Score Marker (The actual data)
+    const markerX = centerX + (Math.max(-3.5, Math.min(3.5, z)) * scaleX);
+    ctx.strokeStyle = "red";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(markerX, 10);
+    ctx.lineTo(markerX, h - margin + 10);
+    ctx.stroke();
+
+    // 5. Labels
+    ctx.fillStyle = "#333";
+    ctx.font = "10px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText("Fail to reject H₀", centerX, h - 5);
+    ctx.fillStyle = "red";
+    ctx.fillText("Reject", leftTailX - 20, h - 5);
+    ctx.fillText("Reject", rightTailX + 20, h - 5);
+}
+
+    init();
+</script>
+}
